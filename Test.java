@@ -2,25 +2,34 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class Test{
-	//ALWAYS REMEMBER TO SEED THE RNG!
+    //ALWAYS REMEMBER TO SEED THE RNG!
     public static Random random = new Random(System.currentTimeMillis());
     
     public static void main(String args[]){ 
-		BlockChain blockchain = new BlockChain("Test");
+        BlockChain blockchain = new BlockChain("Test");
+	    
+	int n; //number of leading zeros in nonce
+    	if(args.length == 0){
+    	    System.out.println("Number of leading zeros not set... using default of 4...");
+            n = 4; //set default to 4 leading zeros
+    	} else {
+    	    n = Integer.parseInt(args[0]);
+    	}
+	
+        int M = 100000;
+        blockchain.addBlock(createGenesisBlock(n),M);
+        System.out.println(blockchain.getLastBlock());
+        System.out.println(blockchain);
 		
-		blockchain.addBlock(createGenesisBlock(2));
-		System.out.println(blockchain.getLastBlock());
-		System.out.println(blockchain);
-		
-		blockchain.addBlock(createNextBlock(2,blockchain.getLastBlock(),"Yumi",20));
-		System.out.println(blockchain.getLastBlock());
-		System.out.println(blockchain);		
+        blockchain.addBlock(createNextBlock(n,M,blockchain.getLastBlock(),"Yumi",20));
+        System.out.println(blockchain.getLastBlock());
+        System.out.println(blockchain);		
 		
     }  
     
     //function to create the Genesis block of the block chain.
     //This must be outside the Block class
-    public static Block createGenesisBlock(int N) {
+    public static Block createGenesisBlock(int N, int M) {
 		//create the genesis block of a block chain. This function 
 		//should only be used ONCE!
 		System.out.print("Creating genesis block now... ");
@@ -42,13 +51,23 @@ public class Test{
 		        block.updateDate(new Date());
 		        block.updateHash();
 		        i++;
-			}
+			if(i%M==0){
+			    //as we do not want too long a nonce, reset the length
+			    //to 1 after a certain number of trials
+                            System.out.printf("\n%d iterations complete...", i);
+                            init_nonce = RandomString(init_nonce_length);
+                            block.updateNonce(init_nonce);
+                            block.updateDate(new Date());
+                            block.updateHash();
+                            i=1;
+                        }		
+		    }
 		}
         System.out.printf("%d iterations to create genesis block.\n",i);
 		return block;
     }
     
-    public static Block createNextBlock(int N, Block prevBlock, String init_data_name, int init_data_amount) {
+    public static Block createNextBlock(int N, int M, Block prevBlock, String init_data_name, int init_data_amount) {
 		//using data from the previous block, create a new block
 		System.out.print("Creating new block now... ");
 		int i = 0; //loop counter
@@ -68,26 +87,34 @@ public class Test{
 		        block.updateDate(new Date());
 		        block.updateHash();
 		        i++;
-			}
+			if(i%M==0){
+			    //as we do not want too long a nonce, reset the length
+			    //to 1 after a certain number of trials
+                            System.out.printf("\n%d iterations complete...", i);
+                            init_nonce = RandomString(init_nonce_length);
+                            block.updateNonce(init_nonce);
+                            block.updateDate(new Date());
+                            block.updateHash();
+                            i=1;
+                        }
+		    }
 		}
-        System.out.printf("%d iterations to create new block.\n",i);
-		return block;		
-		
+            System.out.printf("%d iterations to create new block.\n",i);
+            return block;		
 	}
     
-    //creates a random alpha-numeric string of length N
+    //creates a repeating random alpha-numeric string of length N
     public static String RandomString(int N){
-		String a = "abcdefghijklmnopqrstuvwxyz0123456789";
+        String a = "abcdefghijklmnopqrstuvwxyz0123456789";
         int alen = 36;
         String string = "";
         int b;
         for(int i=0;i<N;i++){
-			b = random.nextInt(alen);
-		    string += a.charAt(b);
-		}
+	    b = random.nextInt(alen);
+	    string += a.charAt(b);
+	}
         return string;
     }    
-
 }
 
 
