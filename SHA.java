@@ -6,7 +6,7 @@ import java.util.Random;
 public class SHA{
     public static String SHA256(String string){ 
 
-	    String H = null;; //for returning
+	    String H = null; //for returning
         try { 
             H = SHA256Except(string, 16, 64);
         } 
