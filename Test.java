@@ -8,7 +8,7 @@ public class Test{
     public static void main(String args[]){ 
         BlockChain blockchain = new BlockChain("Test");
 	    
-	int n; //number of leading zeros in hash
+	    int n; //number of leading zeros in hash
     	if(args.length == 0){
     	    System.out.println("Number of leading zeros not set... using default of 4...");
             n = 4; //set default to 4 leading zeros
@@ -90,7 +90,7 @@ public class Test{
 		Block block = new Block(init_nonce,new Date(),data,init_hash);
         
 		while(true){
-                        counter++;
+            counter++;
 			if(block.getCurrentHash().substring(0,N).equals(zerostring)){
 			    break;
 			}else{
@@ -102,17 +102,17 @@ public class Test{
 			if(i%M==0){
 			    //as we do not want too long a nonce, reset the length
 			    //to 1 after a certain number of trials
-                            //System.out.printf("\n%d iterations complete...", i);
-                            init_nonce = RandomString(init_nonce_length);
-                            block.updateNonce(init_nonce);
-                            block.updateDate(new Date());
-                            block.updateHash();
-                            i=1;
-                        }
+                //System.out.printf("\n%d iterations complete...", i);
+                init_nonce = RandomString(init_nonce_length);
+                block.updateNonce(init_nonce);
+                block.updateDate(new Date());
+                block.updateHash();
+                i=1;
+                }
 		    }
-		}
-            System.out.printf("%d iterations to create new block.\n",counter);
-            return block;		
+        }
+        System.out.printf("%d iterations to create new block.\n",counter);
+        return block;		
 	}
     
     //creates a repeating random alpha-numeric string of length N
@@ -123,9 +123,9 @@ public class Test{
         String string = "";
         int b;
         for(int i=0;i<N;i++){
-	    b = random.nextInt(alen);
-	    string += a.charAt(b);
-	}
+	        b = random.nextInt(alen);
+	        string += a.charAt(b);
+	    }
         return string;
     }    
 }
