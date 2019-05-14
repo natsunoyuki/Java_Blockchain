@@ -17,7 +17,7 @@ public class Test{
     	}
 	
         int M = 100000;
-        blockchain.addBlock(createGenesisBlock(n),M);
+        blockchain.addBlock(createGenesisBlock(n,M));
         System.out.println(blockchain.getLastBlock());
         System.out.println(blockchain);
 		
