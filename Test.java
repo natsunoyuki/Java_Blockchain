@@ -1,6 +1,8 @@
 import java.security.NoSuchAlgorithmException; 
 import java.util.*;
 
+//Test file to test the functionality of the code...
+
 public class Test{
     //ALWAYS REMEMBER TO SEED THE RNG!
     public static Random random = new Random(System.currentTimeMillis());
@@ -23,22 +25,22 @@ public class Test{
         blockchain.addBlock(createGenesisBlock(n,M));
         System.out.println("Genesis block successfully created for Yumi with 100 coins.");
         PRINT(blockchain);
-    
+        //Standard transaction:
         blockchain = makeTransaction(n, M, blockchain, "Yumi", "Naomi", 10);
         PRINT(blockchain);
-
+        //Another transaction from same account to different account:
         blockchain = makeTransaction(n, M, blockchain, "Yumi", "Yurie", 50);
         PRINT(blockchain);       
-    
+        //Impossible transaction which payer cannot afford   
         blockchain = makeTransaction(n, M, blockchain, "Yurie", "Tomomi", 60);
         PRINT(blockchain);       
-
+        //Impossible transaction with no records of payer
         blockchain = makeTransaction(n, M, blockchain, "Tomomi", "Naomi",100);
         PRINT(blockchain);  
-    
+        //Impossible transaction from payer to payer
         blockchain = makeTransaction(n, M, blockchain, "Yurie", "Yurie",10);
         PRINT(blockchain);
-    
+        //Transaction leaving the payer left with 0 coins
         blockchain = makeTransaction(n, M, blockchain, "Naomi", "Yumi",10);
         PRINT(blockchain);
     }  
