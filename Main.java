@@ -29,11 +29,16 @@ public class Main{
         Scanner in = new Scanner(System.in);
         while(true){
             try{
-                System.out.print("Enter \'new\' to create a new block, and \'quit\' or \'exit\' to exit... ");
+                System.out.print("\'new\' to create a new block... \n");
+                System.out.print("\'verify\' to verify the blockchain... \n");
+                System.out.print("\'quit\' or \'exit\' to exit... ");
                 String choice = in.nextLine();
                 if(choice.equals("quit") || choice.equals("exit")){
                     System.out.println("Exiting... ");
                     break;
+				}else if(choice.equals("verify")){
+					blockchain.verifyBlockChain();
+					System.out.println();
                 }else if(choice.equals("new")){
                     System.out.print("Payer account : ");
                     String acc1 = in.nextLine();
@@ -202,8 +207,9 @@ public class Main{
                 if(Data.getCoinAmount(acc1) >= value){
                     String[] string = {acc1, acc2};
                     int[] i = {Data.getCoinAmount(acc1) - value, value};
-                    Data.updateBCData(string, i);
-                    blockchain.addBlock(createNextBlock(n,M,blockchain.getLastBlock(), Data));
+                    BCData Data2 = new BCData(string, i);
+                    //Data.updateBCData(string, i);
+                    blockchain.addBlock(createNextBlock(n,M,blockchain.getLastBlock(), Data2));
                     System.out.printf("%s successfully paid %s %d coins! Transaction complete!\n",acc1,acc2,value);
                 }else{
                     System.out.printf("%s cannot afford to pay %s %d coins! Transaction aborted!\n",acc1,acc2,value);

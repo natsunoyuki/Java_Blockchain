@@ -57,4 +57,28 @@ public class BlockChain{
         System.out.println("Accounts : " + getLastBlock().getBCData().toString());
         System.out.println();
 	}//end printLastBlock()
+	
+	public void verifyBlockChain(){
+		Block B;
+		String X;
+		Iterator<Block> i = blockchain.iterator();
+		while(i.hasNext()){
+			B = i.next();
+			System.out.println("Current hash for block " + B.getIndex() + ":");
+			System.out.println(B.getCurrentHash());
+			X = SHA.SHA256(B.getNonce()+B.getDate()+B.getBCData().toString()+B.getPreviousHash());
+			//System.out.println(B.getNonce());
+			//System.out.println(B.getDate());
+			//System.out.println(B.getBCData().toString());
+			//System.out.println(B.getPreviousHash());
+			System.out.println("Calculated hash:");
+			System.out.println(X);
+			if(X.equals(B.getCurrentHash())){
+				System.out.printf("Block %d verified... \n", B.getIndex());
+			}else{
+			    System.out.printf("BLOCK %d ERROR!!!\n",B.getIndex());
+			}
+		}//end while()
+	} //end veryfyBlockChain()
+	
 }//end BlockChain
