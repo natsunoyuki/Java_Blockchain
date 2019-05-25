@@ -7,6 +7,16 @@ BlockChain. This class first creates a Genesis Block, where the
 administrator is expected to specify by hand within the code the initial
 settings. The program then runs, awaiting user input and transactions
 until specified to stop.
+
+Main.java has the following dependencies:
+    1. BCData.java
+        - class representing the data stored in each block
+    2. Block.java
+        - class representing an individual block of the block chain
+    3. BlockChain.java
+        - class representing the entire block chain
+    4. SHA.java
+        - SHA-256 hashing methods
 */
 
 public class Main{
