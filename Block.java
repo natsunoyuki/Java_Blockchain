@@ -4,6 +4,14 @@ import java.security.NoSuchAlgorithmException; //exception
 /*
 This java code was based on python code developed by:
 https://medium.com/crypto-currently/lets-build-the-tiniest-blockchain-e70965a248b
+
+A Block contains the following objects:
+    1. decimal block index 
+    2. hexadecimal nonce stored as string
+    3. date-time stamp
+    4. data held in another object
+    5. previous hash
+    6. current hash
 */
 
 public class Block{

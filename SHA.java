@@ -3,6 +3,22 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException; 
 import java.util.Random;
 
+/*
+Classes and methods to use SHA-256 in Java.
+
+Static methods are provided so that hashing can be done directly in 
+main() in the following form:
+
+String string = SHA.SHA256(XXX);
+
+When using SHA in Java, NoSuchAlgorithmException MUST BE CATCHED!!!!!!!!
+The actual hashing is done within SHA256Except, where the "Except"
+suffix means that the method throws an Exception to be caught.
+The thrown Exception is caught and handled within the SHA256() method
+in a standard try-catch structure. Users should use the SHA256() method
+to handle all hashing.
+*/
+
 public class SHA{
     public static String SHA256(String string){ 
 		//Handles the Exception thrown by SHA256Except

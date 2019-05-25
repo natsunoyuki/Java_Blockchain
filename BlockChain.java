@@ -1,7 +1,14 @@
 import java.util.*; 
 import java.security.NoSuchAlgorithmException;
 
-//uses ArrayList and the .add method to implement the BlockChain 
+/*
+uses ArrayList and the .add method to implement the BlockChain 
+BlockChain provides a platform to chain several Block objects together.
+
+BlockChain contain the following objects:
+    1. ArrayList to hold the blocks in sequential order
+    2. Blockchain label as unique identification.
+*/
 
 public class BlockChain{
 
@@ -71,10 +78,10 @@ public class BlockChain{
 			//System.out.println(B.getDate());
 			//System.out.println(B.getBCData().toString());
 			//System.out.println(B.getPreviousHash());
-			System.out.println("Calculated hash:");
+			System.out.println("Calculated hash for block " + B.getIndex() + ":");
 			System.out.println(X);
 			if(X.equals(B.getCurrentHash())){
-				System.out.printf("Block %d verified... \n", B.getIndex());
+				System.out.printf("*************Block %d verified!*************\n", B.getIndex());
 			}else{
 			    System.out.printf("BLOCK %d ERROR!!!\n",B.getIndex());
 			}

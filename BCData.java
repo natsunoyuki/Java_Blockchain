@@ -1,6 +1,19 @@
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /*
+Object to hold the data in Block. Block can take any object as data
+and hash it as long as it can be converted to a string.
+
+For this project we use a Hashtable() to store the user-coin data as 
+key-item pairs.
+
+Objects contained in BCData class:
+    1. Map<String, Integer> Hashtable object
+
+Possible way to input data into Map:
 String[] a = {"a","b","c","d"};
 int[] b = {1,2,3,4};
 BCData X = new BCData(a,b);
@@ -37,8 +50,19 @@ public class BCData{
     }//end BCData(String[] a, int[] b)
 
     public BCData(Map X){
+		//this is very dangerous as BCData then references the object X.
+		//Object X should be cloned or copied!
         data = X;
     }//end BCData(Map X)
+
+    public BCData(BCData other){
+		this.data = new Hashtable<String,Integer>();
+        Iterator<Entry<String,Integer>> i = other.data.entrySet().iterator();
+        while (i.hasNext()) {
+            Map.Entry<String,Integer> pair = (Map.Entry<String,Integer>) i.next();
+            this.data.put(pair.getKey(),pair.getValue());
+        }//end while
+	}//end BCData(BCData other)
 
     public Map getData(){
         return data;
